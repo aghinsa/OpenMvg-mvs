@@ -72,21 +72,28 @@ cd ~/building && \
 hg clone https://bitbucket.org/eigen/eigen#3.2 && \
 mkdir eigen_build && cd eigen_build && \
 cmake . ../eigen && \
-make &&  make install && \
-cd ~/building && \
+make &&  make install 
+
+RUN cd ~/building && \
 apt-get -y install libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-serialization-dev && \
 apt-get -y install libopencv-dev && \
-apt-get -y install libcgal-dev libcgal-qt5-dev && \
+apt-get -y install libcgal-dev libcgal-qt5-dev 
+
+RUN cd ~/building && \ 
 git clone https://github.com/cdcseacave/VCG.git vcglib && \
-apt-get -y install libatlas-base-dev libsuitesparse-dev && \
+apt-get -y install libatlas-base-dev libsuitesparse-dev 
+
+
+RUN cd ~/building && \ 
 git clone https://ceres-solver.googlesource.com/ceres-solver ceres-solver && \
 mkdir ceres_build && cd ceres_build && \
 cmake . ../ceres-solver/ -DMINIGLOG=ON -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && \
-make -j2 && make install && \
-cd ~/building && \
+make -j2 && make install
+
+RUN cd ~/building && \
 apt-get -y install freeglut3-dev libglew-dev libglfw3-dev && \
 git clone https://github.com/cdcseacave/openMVS.git openMVS && \
-mkdir openMVS_build && cd openMVS_build && \
+mkdir openMVS_build && cd openMVS_build && \cd ..
 cmake . ../openMVS -DCMAKE_BUILD_TYPE=Release -DVCG_ROOT="~/building/vcglib" && \
 make -j2 &&  make install
 
