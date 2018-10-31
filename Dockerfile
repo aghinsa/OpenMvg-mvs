@@ -25,8 +25,32 @@ RUN \
  git clone https://github.com/cdcseacave/openMVS.git openMVS && \
  mkdir openMVS_build && cd openMVS_build && \
  cmake . ../openMVS -DCMAKE_BUILD_TYPE=Release -DVCG_ROOT="~/building/vcglib" && \
- make -j4 &&  make install 
- 
+ make -j4 &&  make install
+
+# Install apt-getable dependencies
+ RUN apt-get update \
+     && apt-get install -y \
+         build-essential \
+         cmake \
+         git \
+         libatlas-base-dev \
+         libboost-python-dev \
+         libeigen3-dev \
+         libgoogle-glog-dev \
+         libopencv-dev \
+         libsuitesparse-dev \
+         python-dev \
+         python-numpy \
+         python-opencv \
+         python-pip \
+         python-pyexiv2 \
+         python-pyproj \
+         python-scipy \
+         python-yaml \
+         wget \
+     && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
  # Install python requirements
  RUN \
      pip install exifread==2.1.2 \
@@ -44,15 +68,22 @@ RUN \
  #INSTALL wormhole
  RUN \
    pip install magic-wormhole
-   
+#install openmvg from source
+
  RUN \
+  apt-get -y update && apt-get -y upgrade
+
+RUN \
   cd ~/ && \
-  apt-get install libpng-dev libjpeg-dev libtiff-dev libxxf86vm1 libxxf86vm-dev libxi-dev libxrandr-dev && \
-  apt-get install graphviz && \
+  apt-get install -y libpng-dev libjpeg-dev libtiff-dev libxxf86vm1 libxxf86vm-dev libxi-dev libxrandr-dev && \
+  apt-get install -y graphviz
+
+RUN \
+  cd ~/ && \
   git clone --recursive https://github.com/openMVG/openMVG.git && \
   mkdir openMVG_Build && cd openMVG_Build && \
   cmake -DCMAKE_BUILD_TYPE=RELEASE ../openMVG/src/ && \
-  cmake --build . --target install 
+  cmake --build . --target install
 
   RUN rm -rf ~/building
-  RUN echo "export PATH=$PATH:/usr/local/bin/OpenMVS" >> ~/.bashrc  
+  RUN echo "export PATH=$PATH:/usr/local/bin/OpenMVS" >> ~/.bashrc
