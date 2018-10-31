@@ -1,4 +1,4 @@
-import os 
+import os
 home=os.path.expanduser('~')
 main_dir=os.path.join(home,'temp_vi')
 image_dir = os.path.join(main_dir,'images')
@@ -6,3 +6,9 @@ image_dir = os.path.join(main_dir,'images')
 camera_dir=os.path.join(main_dir,'sensor_width_camera_database.txt')
 matches_dir = os.path.join(main_dir,'matches')
 output_dir = os.path.join(main_dir,'output')
+
+#obj
+obj=True
+#manual
+manual=False
+width=2400
