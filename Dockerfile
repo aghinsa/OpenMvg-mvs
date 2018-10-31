@@ -85,5 +85,11 @@ RUN \
   cmake -DCMAKE_BUILD_TYPE=RELEASE ../openMVG/src/ && \
   cmake --build . --target install
 
+RUN \
+  apt-get install -y software-properties-common
+RUN \
+  apt-get install -y python3
+
   RUN rm -rf ~/building
+  RUN echo "set completion-ignore-case-On" >> ~/.inputrc
   RUN echo "export PATH=$PATH:/usr/local/bin/OpenMVS" >> ~/.bashrc
